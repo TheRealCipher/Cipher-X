@@ -1,0 +1,39 @@
+   
+  local function round(num, numDecimalPlaces)
+	local mult = 10 ^ (numDecimalPlaces or 0)
+	return math.floor(num * mult + 0.5) / mult
+end
+   
+local HttpService = game:GetService("HttpService")
+local Loader = Instance.new("ScreenGui")
+local TextLabel = Instance.new("TextLabel")
+local LOADING = Instance.new("ImageLabel")
+
+Loader.Name = "Loader"
+Loader.Parent = game.Players.LocalPlayer:WaitForChild("PlayerGui")
+Loader.ZIndexBehavior = Enum.ZIndexBehavior.Sibling
+
+TextLabel.Parent = Loader
+TextLabel.BackgroundColor3 = Color3.fromRGB(50, 53, 59)
+TextLabel.BackgroundTransparency = 1.000
+TextLabel.AnchorPoint = Vector2.new(0.5, 0.5)
+TextLabel.Position = UDim2.new(0.5,0,4,0)
+TextLabel.Size = UDim2.new(0, 1920, 0, 50)
+TextLabel.Font = Enum.Font.SourceSansBold
+TextLabel.Text = round(game.workspace:GetRealPhysicsFPS(), 1)
+TextLabel.TextColor3 = Color3.fromRGB(255, 255, 255)
+TextLabel.TextSize = 25
+TextLabel.TextStrokeColor3 = Color3.fromRGB(255, 0, 248)
+TextLabel.TextStrokeTransparency = 1
+TextLabel.RichText = true
+
+TextLabel.Size = UDim2.new(0, math.max(18, TextLabel.TextBounds.X * 1.2),1, 0)
+
+TextLabel:TweenPosition(UDim2.new(0.5,0,0.95,0),'Out','Quint',0.3,true)
+
+spawn(function()
+	while wait() do
+TextLabel.Text = round(game.workspace:GetRealPhysicsFPS(), 1)
+	end
+end)
+   
